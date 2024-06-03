@@ -12,13 +12,17 @@ from bson import ObjectId
 import motor.motor_asyncio
 from pymongo import ReturnDocument
 
-import uuid
-
 app = FastAPI(
     title="Tasks API",
     summary="A sample application showing how to use FastAPI to add a ReST API to a MongoDB collection.",
 )
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"]  + "?tls=true&tlsAllowInvalidCertificates=true" )
+try:
+    client.admin.command('ping')
+    print("Connected to MongoDB")
+except Exception as e:
+    print("Failed to connect to MongoDB:", e)
+
 db = client.college
 task_collection = db.get_collection("tasks")
 
