@@ -18,7 +18,7 @@ app = FastAPI(
     title="Tasks API",
     summary="A sample application showing how to use FastAPI to add a ReST API to a MongoDB collection.",
 )
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
+client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"]  + "?tls=true&tlsAllowInvalidCertificates=true" )
 db = client.college
 task_collection = db.get_collection("tasks")
 
