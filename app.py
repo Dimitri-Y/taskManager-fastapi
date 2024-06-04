@@ -16,7 +16,17 @@ app = FastAPI(
     title="Tasks API",
     summary="A sample application showing how to use FastAPI to add a ReST API to a MongoDB collection.",
 )
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"]  + "?tls=true&tlsAllowInvalidCertificates=true" )
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
+
+MONGODB_URL = os.getenv("MONGODB_URL")
+if not MONGODB_URL:
+    raise ValueError("MONGODB_URL not found in environment")
+
+client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL  + "?tls=true&tlsAllowInvalidCertificates=true" )
+
 try:
     client.admin.command('ping')
     print("Connected to MongoDB")
