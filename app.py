@@ -24,8 +24,10 @@ load_dotenv()  # take environment variables from .env.
 MONGODB_URL = os.getenv("MONGODB_URL")
 if not MONGODB_URL:
     raise ValueError("MONGODB_URL not found in environment")
-
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL  + "?tls=true&tlsAllowInvalidCertificates=true" )
+else:
+    print("MONGODB_URL found")
+    
+client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL, tls=True,tlsAllowInvalidCertificates=True )
 
 try:
     client.admin.command('ping')
