@@ -21,7 +21,6 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 
-#MONGODB_URL = os.getenv("MONGODB_URL")
 MONGODB_URL = os.environ.get("MONGODB_URL")
 if not MONGODB_URL:
     raise ValueError("MONGODB_URL not found in environment")
